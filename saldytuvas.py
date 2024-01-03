@@ -1,5 +1,25 @@
 def main():
-    pass
+    while True:
+        print('''
+              asd
+              asd
+              asd
+              asd
+              ''')
+        choice = input("Choice: ")
+        if choice.startswith("exit"):
+            break
+        elif choice.startswith("insert"):
+            fridge_items = insert_item(input("Item name:"), input('Item quantity:'))
+        elif choice.startswith("remove"):
+            remove_item()
+        elif choice.startswith("search"):
+            search_item()
+        elif choice.startswith("print"):
+            print_items()
+        else:
+            print("Bad choice, try again")
+
 
 def insert_item(item_name: str, item_quantity: float): #Balys
     fridge_items = []
@@ -38,7 +58,6 @@ def print_items(products_list):
         for index, (item_name, item_quantity) in enumerate(fridge_items.items(), start=1):
             print(f'{index}. {item_name} : {item_quantity}')
             return
-
 
 
 
