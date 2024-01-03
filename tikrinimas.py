@@ -1,59 +1,42 @@
-def add_item(inventory, item_name, item_quantity):
-    if item_name in inventory:
-        inventory[item_name] += item_quantity
-    else:
-        inventory[item_name] = item_quantity
+def add_task(todo_list, task):
+    todo_list.append(task)
+    print(f"Task added: {task}")
 
-def remove_item(inventory, item_name, item_quantity):
-    if item_name in inventory and inventory[item_name] >= item_quantity:
-        inventory[item_name] -= item_quantity
-        print(f"Removed {item_quantity} {item_name}(s) from the inventory.")
+def remove_task(todo_list, task):
+    if task in todo_list:
+        todo_list.remove(task)
+        print(f"Task removed: {task}")
     else:
-        print(f"Not enough {item_name} in the inventory or it does not exist.")
+        print(f"Task not found: {task}")
 
-def check_quantity(inventory, item_name, required_quantity):
-    if item_name in inventory:
-        if inventory[item_name] >= required_quantity:
-            print(f"There is enough {item_name} in the inventory.")
-        else:
-            print(f"Not enough {item_name} in the inventory.")
+def print_tasks(todo_list):
+    if not todo_list:
+        print("The to-do list is empty.")
     else:
-        print(f"{item_name} not found in the inventory.")
+        print("To-Do List:")
+        for index, task in enumerate(todo_list, start=1):
+            print(f"{index}. {task}")
 
-def print_inventory(inventory):
-    if not inventory:
-        print("The inventory is empty.")
-    else:
-        print("Inventory:")
-        for item_name, item_quantity in inventory.items():
-            print(f"{item_name}: {item_quantity}")
-
-inventory = {}
+# Initial to-do list
+todo_list = []
 
 while True:
-    print('=== Inventory Management ===')
+    print('=== To-Do List Management ===')
     print('0: Exit')
-    print('1: Add Item')
-    print('2: Remove Item')
-    print('3: Check Quantity')
-    print('4: Print Inventory')
+    print('1: Add Task')
+    print('2: Remove Task')
+    print('3: Print Tasks')
     choice = input('Enter your choice: ')
-    
+
     if choice == '0':
         break
     elif choice == '1':
-        item_name = input('Enter item name: ')
-        item_quantity = int(input('Enter item quantity: '))
-        add_item(inventory, item_name, item_quantity)
+        task = input('Enter task: ')
+        add_task(todo_list, task)
     elif choice == '2':
-        item_name = input('Enter item name: ')
-        item_quantity = int(input('Enter item quantity: '))
-        remove_item(inventory, item_name, item_quantity)
+        task = input('Enter task: ')
+        remove_task(todo_list, task)
     elif choice == '3':
-        item_name = input('Enter item name: ')
-        required_quantity = int(input('Enter required quantity: '))
-        check_quantity(inventory, item_name, required_quantity)
-    elif choice == '4':
-        print_inventory(inventory)
+        print_tasks(todo_list)
     else:
         print("Invalid choice. Please try again.")
