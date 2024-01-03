@@ -1,0 +1,56 @@
+fridge_items = {}
+
+def main():  # Valdemaras
+    while True:
+        print('''
+              asd
+              asd
+              asd
+              asd
+              ''')
+        choice = input("Choice: ")
+        if choice.startswith("exit"):
+            break
+        elif choice.startswith("insert"):
+            insert_item(input("Item name:"), float(input('Item quantity:')))
+        elif choice.startswith("remove"):
+            remove_item(input("Item name:"), float(input('Item quantity:')))
+        elif choice.startswith("search"):
+            search_item(input("Enter a search string: "), fridge_items)
+        elif choice.startswith("print"):
+            print_items(fridge_items)
+        else:
+            print("Bad choice, try again")
+
+def insert_item(item_name: str, item_quantity: float):  # Balys
+    if item_name in fridge_items:
+        fridge_items[item_name] += item_quantity
+    else:
+        fridge_items[item_name] = item_quantity
+    print(f"{item_quantity}x {item_name} was added to the fridge.")
+
+def remove_item(item_name, item_quantity):  # Aivaras
+    if item_name in fridge_items and fridge_items[item_name] >= item_quantity:
+        fridge_items[item_name] -= item_quantity
+        print(f"{item_quantity}x {item_name} removed from the fridge.")
+    else:
+        print(f"Not enough quantity of {item_name} in the fridge or it does not exist.")
+
+def search_item(string_entered: str, fridge_content):  # Maksim
+    found_items = [key for key in fridge_content if str(key).startswith(string_entered)]
+    if found_items:
+        for item in found_items:
+            print(f"Item found: {item} with quantity {fridge_content[item]}!")
+    else:
+        print("No items found!")
+
+def print_items(fridge_items):  # Petras
+    if not fridge_items:
+        print('The fridge is empty. Starve or add something.')
+    else:
+        print('Items in the fridge:')
+        for item_name, item_quantity in fridge_items.items():
+            print(f'{item_name} : {item_quantity}')
+
+if __name__ == "__main__":
+    main()
