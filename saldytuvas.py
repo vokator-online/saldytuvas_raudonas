@@ -1,9 +1,10 @@
-
 def main():
     pass
 
-def insert_item():
-    pass
+def insert_item(item_name, item_quantity): #Balys
+    item_add = {"Item name:": item_name, "Item quantity": item_quantity}
+    fridge_items.append(item_add)
+    print(f"{item_quantity}x{item_name} was added to the fridge")
 
 def remove_item():
     pass
