@@ -1,5 +1,4 @@
 fridge_items = {}
-# fridge_items = {produktas: kiekis}
 
 def main(): #Valdemaras
     while True:
@@ -49,6 +48,7 @@ def search_item(fridge_items, item_name: str, item_quantity: float):    #Maksim
 
 def print_items(fridge_items): #Petras
     if  fridge_items == {}:
+
         print('Šaldytuvas yra tuščias. Badauk arba įdėk ką nors')
     else:
         print('Šaldytuve esantys produktai:')
