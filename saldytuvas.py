@@ -1,9 +1,9 @@
 fridge_items = {}
 
-def main(): #Valdemaras
+def main():  # Valdemaras
     while True:
         print('''
-              ----Chose what you want to do with the frige----
+              ----Choose what you want to do with the fridge----
               exit = Exit.
               insert = Insert a new product into the fridge.
               remove = Remove item from the fridge.
@@ -14,9 +14,11 @@ def main(): #Valdemaras
         if choice.startswith("exit"):
             break
         elif choice.startswith("insert"):
-            insert_item(str(input("Item name:")), float(input('Item quantity:')))
+            item_name = input("Item name:")
+            item_quantity = input('Item quantity:')
+            insert_item(item_name, float(item_quantity)) 
         elif choice.startswith("remove"):
-            remove_item(input("Item name:"), input('Item quantity:'))
+            remove_item(input("Item name:"), float(input('Item quantity:')))
         elif choice.startswith("search"):
             search_item()
         elif choice.startswith("print"):
@@ -57,7 +59,8 @@ def print_items(fridge_items): #Petras
             print(f'{index}. {item_name} : {item_quantity}')
             return
 
-
+if __name__ == "__main__":
+    main()
 
 """ Komandinio darbo užduotis
 ===[ Šaldytuvas ]===
