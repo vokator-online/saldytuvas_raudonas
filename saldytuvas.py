@@ -24,20 +24,22 @@ def main(): #Valdemaras
         else:
             print("Bad choice, try again")
 
+            
 def insert_item(item_name: str, item_quantity: float): #Balys
     fridge_items[item_name] = item_quantity
     print(f"{item_quantity}x{item_name} was added to the fridge")
     return fridge_items
 
-def remove_item(fridge_items, item_name, item_quantity): #Aivaras
-    if item_name in fridge_items:
-        if fridge_items[item_name] >= item_quantity:
-            fridge_items[item_name] -= item_quantity
-        else:
-            print(f"Quantity too low: {item_name}")
+
+def remove_item(item_name, item_quantity):    #Aivaras
+    item_remove = {"Item name:": item_name, "Item quantity": item_quantity}
+    if item_name in fridge_items.item() and fridge_items.turinys[items] >= quantity:
+        
+        fridge_items.remove()
+        print(f"{item_name} išimtas iš šaldytuvo.")
     else:
-        print(f"Product not found: {item_name}")     
-      
+        print(f"{item_name} kiekio šaldytuve nepakanka arba jis neegzistuoja.")
+        
   
 def search_item(fridge_items, item_name: str, item_quantity: float):    #Maksim
     if item_name in fridge_items:
