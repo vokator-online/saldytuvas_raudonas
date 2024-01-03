@@ -49,6 +49,7 @@ class Saldytuvas:
         for produktas, kiekis in self.turinys.items():
             print(f"{produktas}: {kiekis}")
 
+
 def patikrinti_recepta(saldytuvas, receptas):
     recepto_produktai = dict(item.split(':') for item in receptas.split(', '))
     truksta_produktu = {}
@@ -65,27 +66,72 @@ def patikrinti_recepta(saldytuvas, receptas):
         for produktas, trukstamas_kiekis in truksta_produktu.items():
             print(f"{produktas}: {trukstamas_kiekis}")
 
-# Sukuriamas šaldytuvas
-saldytuvas = Saldytuvas()
 
-# Pridedami produktai į šaldytuvą
-saldytuvas.prideti_produktus({"Pienas": 2, "Kiaušiniai": 6, "Pomidoras": 4})
+def main():
+    saldytuvas = Saldytuvas()
 
-# Išspausdinamas šaldytuvo turinys
-saldytuvas.spausdinti_turini()
+    while True:
+        print("\nPasirinkimai:")
+        print("1. Pridėti produktą į šaldytuvą")
+        print("2. Išimti produktą iš šaldytuvo")
+        print("3. Patikrinti produkto kiekį šaldytuve")
+        print("4. Spausdinti šaldytuvo turinį")
+        print("5. Patikrinti receptą")
+        print("6. Baigti programą")
 
-# Pridedami papildomi produktai
-saldytuvas.prideti_produktus({"Kiaušiniai": 4, "Sūris": 0.5, "Duona": 1})
+        choice = input("Įveskite pasirinkimo numerį: ")
 
-# Išspausdinamas šaldytuvo turinys
-saldytuvas.spausdinti_turini()
+        if choice == '1':
+            insert_item(saldytuvas)
+        elif choice == '2':
+            remove_item(saldytuvas)
+        elif choice == '3':
+            search_item(saldytuvas)
+        elif choice == '4':
+            print_items(saldytuvas)
+        elif choice == '5':
+            check_recipe(saldytuvas)
+        elif choice == '6':
+            break
+        else:
+            print("Netinkamas pasirinkimas. Bandykite dar kartą.")
 
-# Išimami produktai iš šaldytuvo
-saldytuvas.isimti_produktus({"Pienas": 1, "Pomidoras": 2, "Sviestas": 0.2})
 
-# Išspausdinamas šaldytuvo turinys
-saldytuvas.spausdinti_turini()
+def insert_item(saldytuvas):
+    produktai = {}
+    produktas = input("Įveskite produkto pavadinimą: ")
+    kiekis = float(input("Įveskite produkto kiekį: "))
+    produktai[produktas] = kiekis
+    saldytuvas.prideti_produktus(produktai)
+    print(f"{produktas} pridėtas prie šaldytuvo.")
 
-# Patikrinamas receptas
-receptas = "Sūris: 0.3, Pomidoras: 2, Duona: 0.5"
-patikrinti_recepta(saldytuvas, receptas)
+
+def remove_item(saldytuvas):
+    produktai = {}
+    produktas = input("Įveskite produkto pavadinimą: ")
+    kiekis = float(input("Įveskite produkto kiekį: "))
+    produktai[produktas] = kiekis
+    saldytuvas.isimti_produktus(produktai)
+    print(f"{produktas} išimtas iš šaldytuvo.")
+
+
+def search_item(saldytuvas):
+    produktas = input("Įveskite produkto pavadinimą: ")
+    kiekis = float(input("Įveskite reikiamą produkto kiekį: "))
+    if saldytuvas.tikrinti_kieki(produktas, kiekis):
+        print(f"{produktas} kiekis šaldytuve užtenka.")
+    else:
+        print(f"{produktas} kiekio šaldytuve nepakanka.")
+
+
+def print_items(saldytuvas):
+    saldytuvas.spausdinti_turini()
+
+
+def check_recipe(saldytuvas):
+    receptas = input("Įveskite receptą (pavyzdys: Sūris: 0.5, Pomidoras: 2, Duona: 0.4): ")
+    patikrinti_recepta(saldytuvas, receptas)
+
+
+if __name__ == "__main__":
+    main()

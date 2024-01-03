@@ -5,8 +5,17 @@ def main():
 def insert_item():
     pass
 
-def remove_item():
-    pass
+def remove_item(saldytuvas):
+    produktas = input("Įveskite produkto pavadinimą: ")
+    kiekis = float(input("Įveskite produkto kiekį: "))
+
+    if produktas in saldytuvas.item() and saldytuvas.turinys[produktas] >= kiekis:
+        produktai = {produktas: kiekis}
+        saldytuvas.isimti_produktus(produktai)
+        print(f"{produktas} išimtas iš šaldytuvo.")
+    else:
+        print(f"{produktas} kiekio šaldytuve nepakanka arba jis neegzistuoja.")
+        pass
 
 def search_item():
     pass
@@ -15,7 +24,10 @@ def print_items():
     pass
 
 
-
+def remove_iems(produktai: list, task_index: int) -> list:
+    removed_task = produktai.pop(task_index)
+    print(f"Removed task: {removed_task['name']}")
+    return produktai
 
 
 """ Komandinio darbo užduotis
