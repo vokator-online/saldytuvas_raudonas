@@ -17,6 +17,7 @@ BONUS:
 
 """
 
+
 class Saldytuvas:
     def __init__(self):
         self.turinys = {}
