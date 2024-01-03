@@ -15,7 +15,7 @@ def remove_item(saldytuvas):
         print(f"{produktas} išimtas iš šaldytuvo.")
     else:
         print(f"{produktas} kiekio šaldytuve nepakanka arba jis neegzistuoja.")
-        pass
+        
 
 def search_item():
     pass
