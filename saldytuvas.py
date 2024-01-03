@@ -16,25 +16,31 @@ def main():  # Valdemaras
         elif choice.startswith("insert"):
             item_name = input("Item name:")
             item_quantity = input('Item quantity:')
-            insert_item(item_name, float(item_quantity)) 
+            insert_item(fridge_items, item_name, float(item_quantity)) 
         elif choice.startswith("remove"):
-            remove_item(input("Item name:"), float(input('Item quantity:')))
+            item_name = input("Item name:")
+            item_quantity = input('Item quantity:')
+            remove_item(fridge_items, item_name, float(item_quantity)) 
         elif choice.startswith("search"):
-            search_item()
+            item_name = input("Item name:")
+            search_item(fridge_items, item_name)
         elif choice.startswith("print"):
-            print_items()
+            print_items(fridge_items)
         else:
             print("Bad choice, try again")
 
             
-def insert_item(item_name: str, item_quantity: float): #Balys
-    fridge_items[item_name] = item_quantity
-    print(f"{item_quantity}x{item_name} was added to the fridge")
-    return fridge_items
+def insert_item(fridge_items, item_name: str, item_quantity: float): #Balys
+    if item_name in fridge_items:
+        fridge_items[item_name] += item_quantity
+        print(f"{item_name} was already in the fridge and we added {item_quantity} more")
+    else:
+        fridge_items[item_name] = item_quantity
+        print(f"{item_quantity}x {item_name} was added to the fridge")
+ 
 
 
-def remove_item(item_name, item_quantity):    #Aivaras
-    item_remove = {"Item name:": item_name, "Item quantity": item_quantity}
+def remove_item(fridge_items, item_name, item_quantity):    #Aivaras
     if item_name in fridge_items and fridge_items[item_name] >= item_quantity:
         fridge_items[item_name] -= item_quantity
         print(f"{item_name} išimtas iš šaldytuvo.")
@@ -42,22 +48,18 @@ def remove_item(item_name, item_quantity):    #Aivaras
         print(f"{item_name} kiekio šaldytuve nepakanka arba jis neegzistuoja.")
         return fridge_items
   
-def search_item(fridge_items, item_name: str, item_quantity: float):    #Maksim
+def search_item(fridge_items, item_name: str):    #Maksim
     if item_name in fridge_items:
-        return fridge_items[item_name] >= item_quantity
+        print("Dog is in the house")
     else:
-        return False
+        print(f"No {item_name} was found")
 
 
 def print_items(fridge_items): #Petras
-    if  fridge_items == {}:
+    print('Šaldytuve esantys produktai:')
+    for index, (item_name, item_quantity) in enumerate(fridge_items.items(), start=1):
+        print(f'{index}. {item_name} : {item_quantity}')
 
-        print('Šaldytuvas yra tuščias. Badauk arba įdėk ką nors')
-    else:
-        print('Šaldytuve esantys produktai:')
-        for index, (item_name, item_quantity) in enumerate(fridge_items.items(), start=1):
-            print(f'{index}. {item_name} : {item_quantity}')
-            return
 
 if __name__ == "__main__":
     main()
