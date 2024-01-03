@@ -1,5 +1,25 @@
 def main():
-    pass
+    while True:
+        print('''
+              asd
+              asd
+              asd
+              asd
+              ''')
+        choice = input("Choice: ")
+        if choice.startswith("exit"):
+            break
+        elif choice.startswith("insert"):
+            fridge_items = insert_item(input("Item name:"), input('Item quantity:'))
+        elif choice.startswith("remove"):
+            remove_item()
+        elif choice.startswith("search"):
+            search_item()
+        elif choice.startswith("print"):
+            print_items()
+        else:
+            print("Bad choice, try again")
+
 
 def insert_item(item_name: str, item_quantity: float): #Balys
     fridge_items = []
@@ -8,18 +28,30 @@ def insert_item(item_name: str, item_quantity: float): #Balys
     print(f"{item_quantity}x{item_name} was added to the fridge")
     return fridge_items
 
-def remove_iems(item_name: list, item_quantity: int) -> list:
-    removed_task = item_name.pop(item_quantity)
-    print(f"Removed task: {removed_task['name']}")
-    return fridge_items
+def remove_item(saldytuvas):
+    produktas = input("Įveskite produkto pavadinimą: ")
+    kiekis = float(input("Įveskite produkto kiekį: "))
+
+    if produktas in saldytuvas.item() and saldytuvas.turinys[produktas] >= kiekis:
+        produktai = {produktas: kiekis}
+        saldytuvas.isimti_produktus(produktai)
+        print(f"{produktas} išimtas iš šaldytuvo.")
+    else:
+        print(f"{produktas} kiekio šaldytuve nepakanka arba jis neegzistuoja.")
         
+      
+  
+def search_item(string_entered: str, fridge_content={'None':0.00} ):
+    for key in fridge_content:
+        if str(key).startswith(string_entered):
+            print(f"Item found {key} with quantity {fridge_content[key]}!")
+        else:
+            print("No items found!")
+    
 
+def print_items(products_list): 
+    if not products_list:
 
-def search_item():
-    pass
-
-def print_items(fridge_items): 
-    if not fridge_items:
         print('Šaldytuvas yra tuščias. Badauk arba įdėk ką nors')
     else:
         print('Šaldytuve esantys produktai:')
@@ -27,12 +59,6 @@ def print_items(fridge_items):
             print(f'{index}. {item_name} : {item_quantity}')
             return
 
-
-
-def remove_iems(produktai: list, task_index: int) -> list:
-    removed_task = produktai.pop(task_index)
-    print(f"Removed task: {removed_task['name']}")
-    return produktai
 
 
 """ Komandinio darbo užduotis
