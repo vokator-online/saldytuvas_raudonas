@@ -24,8 +24,15 @@ def remove_item(saldytuvas):
 def search_item():
     pass
 
-def print_items():
-    pass
+def print_items(fridge_items): 
+    if not fridge_items:
+        print('Šaldytuvas yra tuščias. Badauk arba įdėk ką nors')
+    else:
+        print('Šaldytuve esantys produktai:')
+        for index, (item_name, item_quantity) in enumerate(fridge_items.items(), start=1):
+            print(f'{index}. {item_name} : {item_quantity}')
+            return
+
 
 
 def remove_iems(produktai: list, task_index: int) -> list:
