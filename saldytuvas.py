@@ -17,6 +17,7 @@ def print_items():
 
 
 
+
 """ Komandinio darbo užduotis
 ===[ Šaldytuvas ]===
 
