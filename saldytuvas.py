@@ -18,12 +18,9 @@ def remove_item(saldytuvas):
         print(f"{produktas} išimtas iš šaldytuvo.")
     else:
         print(f"{produktas} kiekio šaldytuve nepakanka arba jis neegzistuoja.")
-        pass
-
-
-def remove_item():
-    pass
-
+        
+      
+  
 def search_item(string_entered: str, fridge_content={'None':0.00} ):
     for key in fridge_content:
         if str(key).startswith(string_entered):
@@ -34,19 +31,15 @@ def search_item(string_entered: str, fridge_content={'None':0.00} ):
 
 def print_items(products_list): 
     if not products_list:
+
         print('Šaldytuvas yra tuščias. Badauk arba įdėk ką nors')
     else:
         print('Šaldytuve esantys produktai:')
-        for index, (product, quantity) in enumerate(products_list.items(), start=1):
-            print(f'{index}. {product} : {quantity}')
+        for index, (item_name, item_quantity) in enumerate(fridge_items.items(), start=1):
+            print(f'{index}. {item_name} : {item_quantity}')
             return
 
 
-
-def remove_iems(produktai: list, task_index: int) -> list:
-    removed_task = produktai.pop(task_index)
-    print(f"Removed task: {removed_task['name']}")
-    return produktai
 
 
 """ Komandinio darbo užduotis
