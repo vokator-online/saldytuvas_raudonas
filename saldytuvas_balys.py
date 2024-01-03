@@ -14,7 +14,7 @@ def main():
         elif choice.startswith("insert"):
             fridge_items = insert_item(input("Item name:"), input('Item quantity:'))
         elif choice.startswith("remove"):
-            remove_item()
+            remove_items()
         elif choice.startswith("search"):
             search_item()
         elif choice.startswith("print"):
@@ -28,8 +28,10 @@ def insert_item(item_name: str, item_quantity: float): #Balys
     print(f"{item_quantity}x{item_name} was added to the fridge")
     return fridge_items
 
-def remove_item():
-    pass
+def remove_items(item_name: list, item_quantity: int) -> list:
+    removed_task = item_name.pop(item_quantity)
+    print(f"Removed task: {removed_task['name']}")
+    return fridge_items
  
 def search_item():
     pass
