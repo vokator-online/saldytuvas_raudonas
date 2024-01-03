@@ -35,13 +35,12 @@ def insert_item(item_name: str, item_quantity: float): #Balys
 
 def remove_item(item_name, item_quantity):    #Aivaras
     item_remove = {"Item name:": item_name, "Item quantity": item_quantity}
-    if item_name in fridge_items.item() and fridge_items.turinys[items] >= quantity:
-        
-        fridge_items.remove()
+    if item_name in fridge_items and fridge_items[item_name] >= item_quantity:
+        fridge_items[item_name] -= item_quantity
         print(f"{item_name} išimtas iš šaldytuvo.")
     else:
         print(f"{item_name} kiekio šaldytuve nepakanka arba jis neegzistuoja.")
-        
+        return fridge_items
   
 def search_item(fridge_items, item_name: str, item_quantity: float):    #Maksim
     if item_name in fridge_items:
