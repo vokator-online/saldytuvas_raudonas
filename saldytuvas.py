@@ -40,8 +40,8 @@ def insert_item(fridge_items, item_name: str, item_quantity: float): #Balys
  
 
 
-def remove_item(fridge_items, item_name, item_quantity):    #Aivaras
-    if item_name in fridge_items and fridge_items[item_name] >= item_quantity:
+def remove_item(item_name, item_quantity):    #Aivaras
+    if item_name in fridge_items[item_name] >= item_quantity:
         fridge_items[item_name] -= item_quantity
         if fridge_items[item_name] == 0:
             del fridge_items[item_name] 
