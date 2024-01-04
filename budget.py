@@ -61,10 +61,16 @@ def print_items(budget):
 
 
 def get_balance(budget):
-    balance = 0
-    for item_name in budget:
-
-
+    positive_balance = 0
+    negative_balance = 0
+    for item_name, item_quantity in budget.items():
+        if item_quantity > 0:
+            positive_balance += item_quantity
+        else:
+            negative_balance += item_quantity
+    balance = positive_balance + negative_balance
+    print(f"Your total gains: {positive_balance} minus your total loss: {negative_balance}\nYour ballance is: {balance}")
+    return balance
 
 
 if __name__ == "__main__":
