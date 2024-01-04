@@ -1,7 +1,6 @@
-fridge_items = {}
-recipe= {"milk":1, "butter":1}
+def main():
+    fridge_items = {}
 
-def main():  # Valdemaras
     while True:
         print('''
               ----Choose what you want to do with the fridge----
@@ -17,44 +16,56 @@ def main():  # Valdemaras
             break
         elif choice.startswith("insert"):
             item_name = input("Item name:")
-            item_quantity = input('Item quantity:')
-            insert_item(fridge_items, item_name, float(item_quantity)) 
+            item_quantity = float(input('Item quantity:'))
+            insert_item(fridge_items, item_name, item_quantity)
         elif choice.startswith("remove"):
             item_name = input("Item name:")
-            item_quantity = input('Item quantity:')
-            remove_item(fridge_items, item_name, float(item_quantity)) 
+            item_quantity = float(input('Item quantity:'))
+            remove_item(fridge_items, item_name, item_quantity)
         elif choice.startswith("search"):
             item_name = input("Item name:")
             search_item(fridge_items, item_name)
         elif choice.startswith("print"):
             print_items(fridge_items)
         elif choice.startswith("check recipe"):
-            # recipe = input("Input recipe:")
-            check_recipe(fridge_items, recipe)
+            recipe_str = input("Input recipe:")
+            recipe = parse_recipe(recipe_str)
+            missed_products = check_recipe(fridge_items, recipe)
+            if not missed_products:
+                print("Recipe can be crafted!")
+            else:
+                print("Missing products in the fridge:")
+                for item_name, missing_quantity in missed_products.items():
+                    print(f"{item_name}: {missing_quantity}")
         else:
             print("Bad choice, try again")
+
+
 
             
 def insert_item(fridge_items, item_name: str, item_quantity: float): #Balys
     if item_name in fridge_items:
         fridge_items[item_name] += item_quantity
-        print(f"{item_name} was already in the fridge and we added {item_quantity} more")
+        print(f"{item_name} was already in the fridge and we added {item_quantity} more.")
     else:
         fridge_items[item_name] = item_quantity
-        print(f"{item_quantity}x {item_name} was added to the fridge")
- 
+        print(f"{item_quantity}x {item_name} was added to the fridge.")
 
 
 def remove_item(fridge_items, item_name, item_quantity):    #Aivaras
-    if item_name in fridge_items and fridge_items[item_name] >= item_quantity:
-        fridge_items[item_name] -= item_quantity
-        if fridge_items[item_name] == 0:
-            del fridge_items[item_name] 
-        print(f"{item_name} was removed from the fridge.")
+    if item_name in fridge_items:
+        if fridge_items[item_name] >= item_quantity:
+            fridge_items[item_name] -= item_quantity
+            if fridge_items[item_name] == 0:
+                del fridge_items[item_name] 
+            print(f"{item_name} was removed from the fridge.")
+        else:
+            print(f"Not enough {item_name} quantity in the fridge.")
     else:
-        print(f"{item_name} does not exist or not enough quantity left.")
-        return fridge_items
-  
+        print(f"{item_name} does not exist in the fridge.")
+    return fridge_items
+
+
 def search_item(fridge_items, item_name: str):    #Maksim
     if item_name in fridge_items:
         print(f"{item_name} is in the fridge")
@@ -66,6 +77,7 @@ def print_items(fridge_items): #Petras
     print('Contents of the fridge:')
     for index, (item_name, item_quantity) in enumerate(fridge_items.items(), start=1):
         print(f'{index}. {item_name} : {item_quantity}')
+
 
 def check_recipe(fridge_items, recipe):
     missed_products = {}  # Initialize as an empty dictionary
@@ -85,10 +97,16 @@ def check_recipe(fridge_items, recipe):
     return missed_products
 
 
+def parse_recipe(recipe_str):
+    items = recipe_str.split(', ')
+    recipe = {}
+    for item in items:
+        name, quantity = item.split(':')
+        recipe[name.strip()] = int(quantity)
+    return recipe
+
 if __name__ == "__main__":
     main()
-
-
 
 
 
