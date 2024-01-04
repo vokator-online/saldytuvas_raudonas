@@ -41,7 +41,7 @@ def insert_item(fridge_items, item_name: str, item_quantity: float): #Balys
 
 
 def remove_item(item_name, item_quantity):    #Aivaras
-    if item_name in fridge_items and fridge_items[item_name] >= item_quantity:
+    if item_name in fridge_items[item_name] >= item_quantity:
         fridge_items[item_name] -= item_quantity
         print(f"Removed {item_quantity}x {item_name} from the fridge.")
     else:
