@@ -45,20 +45,20 @@ def remove_item(fridge_items, item_name, item_quantity):    #Aivaras
         fridge_items[item_name] -= item_quantity
         if fridge_items[item_name] == 0:
             del fridge_items[item_name] 
-        print(f"{item_name} išimtas iš šaldytuvo.")
+        print(f"{item_name} was removed from the fridge.")
     else:
-        print(f"{item_name} kiekio šaldytuve nepakanka arba jis neegzistuoja.")
+        print(f"{item_name} does not exist or not enough quantity left.")
         return fridge_items
   
 def search_item(fridge_items, item_name: str):    #Maksim
     if item_name in fridge_items:
-        print("Dog is in the house")
+        print(f"{item_name} is in the fridge")
     else:
-        print(f"No {item_name} was found")
+        print(f"No {item_name} was found in the fridge")
 
 
 def print_items(fridge_items): #Petras
-    print('Šaldytuve esantys produktai:')
+    print('Contents of the fridge:')
     for index, (item_name, item_quantity) in enumerate(fridge_items.items(), start=1):
         print(f'{index}. {item_name} : {item_quantity}')
 
