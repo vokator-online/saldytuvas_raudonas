@@ -46,7 +46,7 @@ def remove_item(item_name, item_quantity):    #Aivaras
         print(f"Removed {item_quantity}x {item_name} from the fridge.")
     else:
         print(f"Not enough {item_name} in the fridge or it does not exist.")
-        return fridge_items
+        
   
 def search_item(fridge_items, item_name: str):    #Maksim
     if item_name in fridge_items:
