@@ -8,7 +8,7 @@ def main():
               insert = Insert a new product into the fridge.
               remove = Remove item from the fridge.
               search = Search fridge for a product and quantity.
-              print = Print all the contents of the fridge.
+              list = List all the contents of the fridge.
               check recipe = Check if provided recipe is craftable.
               ''')
         choice = input("Your choice: ")
@@ -25,7 +25,7 @@ def main():
         elif choice.startswith("search"):
             item_name = input("Item name:")
             search_item(fridge_items, item_name)
-        elif choice.startswith("print"):
+        elif choice.startswith("list"):
             print_items(fridge_items)
         elif choice.startswith("check recipe"):
             recipe_str = input("Input recipe:")
