@@ -1,4 +1,5 @@
 fridge_items = {}
+recipe= {"milk":1, "butter":1}
 
 def main():  # Valdemaras
     while True:
@@ -9,6 +10,7 @@ def main():  # Valdemaras
               remove = Remove item from the fridge.
               search = Search fridge for a product and quantity.
               print = Print all the contents of the fridge.
+              check recipe = Check if provided recipe is craftable.
               ''')
         choice = input("Your choice: ")
         if choice.startswith("exit"):
@@ -26,6 +28,9 @@ def main():  # Valdemaras
             search_item(fridge_items, item_name)
         elif choice.startswith("print"):
             print_items(fridge_items)
+        elif choice.startswith("check recipe"):
+            # recipe = input("Input recipe:")
+            check_recipe(fridge_items, recipe)
         else:
             print("Bad choice, try again")
 
@@ -62,9 +67,30 @@ def print_items(fridge_items): #Petras
     for index, (item_name, item_quantity) in enumerate(fridge_items.items(), start=1):
         print(f'{index}. {item_name} : {item_quantity}')
 
+def check_recipe(fridge_items, recipe):
+    missed_products = {}  # Initialize as an empty dictionary
+    for item_name, need_quantity in recipe.items():
+        if item_name in fridge_items:
+            available_quantity = fridge_items[item_name]
+            if available_quantity >= need_quantity:
+                print(f"{item_name} is in the fridge.")
+            else:
+                missing_quantity = need_quantity - available_quantity
+                missed_products[item_name] = missing_quantity
+                print(f"{item_name} is in the fridge, but not enough quantity.")
+        else:
+            missed_products[item_name] = need_quantity
+            print(f"{item_name} is not in the fridge.")
+
+    return missed_products
+
 
 if __name__ == "__main__":
     main()
+
+
+
+
 
 """ Komandinio darbo užduotis
 ===[ Šaldytuvas ]===
