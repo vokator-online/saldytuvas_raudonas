@@ -44,6 +44,6 @@ def list_albums():
         print(f'{index}. {album["title"]} by {album["artist"]}')
 
 
-if __name__ == "__main__":
-    main()
+
+main()
     
