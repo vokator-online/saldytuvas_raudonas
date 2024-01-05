@@ -23,7 +23,7 @@ def main():
         else:
             print("Bad choice, try again")
 
-
+albums = []
 
 def add_album(artist, title):
     album = {'artist': artist, 'title': title }
@@ -31,5 +31,19 @@ def add_album(artist, title):
     print(f"Album {title} by {artist} added.")
 
 def remove_album(artist, title):
-    album = 
+    for album in albums:
+        if album['artist'] == artist and album['title'] == title:
+            albums.remove(album)
+            print(f"Album {title} by {artist} removed.")
+            return
+    print(f"Album {title} by {artist} not found.")
+
+def list_albums():
+    print('Albums in the collection:')
+    for index, album in enumerate(albums, start=1):
+        print(f'{index}. {album["title"]} by {album["artist"]}')
+
+
+if __name__ == "__main__":
+    main()
     
