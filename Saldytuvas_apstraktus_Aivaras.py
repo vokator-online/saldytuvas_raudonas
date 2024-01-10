@@ -26,6 +26,10 @@ class Recipe:
     def remove_ingredient(self, ingredient_id:int):
         self.ingredients.pop(ingredient_id)
 
+    def print_recipe(self):
+        for index, ingredient in enumerate(self.ingredients, start=1):
+            print(f'{index}, {ingredient}')
+
 
 class Fridge:
     contents = []
@@ -45,6 +49,10 @@ class Fridge:
             product.quantity += quantity
         else:
             self.contents.append(Product(name, quantity))
+
+    def print_contents(self):
+        for index, line in enumerate(self.contents, start=1):
+            print(f"{index} - {line}")
 
     def remove_product(self, name:str, quantity:float):
         product_id, product = self.check_product(name)
@@ -77,8 +85,10 @@ class Fridge:
             
 
 
+
 def main():
     fridge = Fridge()
+    recipe = Recipe()
 
     while True:
         print('''
@@ -88,6 +98,10 @@ def main():
               2 = Remove a product.
               3 = Check recipe is crafttable.
               4 = Print content of the fridge.
+              5 = Add products to recipe.
+              6 = Remove products from recipe.
+              7 = Change ingredient quantity of recipe.
+              8 = Print current recipe.
               ''')
         choice = input("Your choice: ")
 
@@ -102,14 +116,27 @@ def main():
             quantity = float(input('Product quantity:'))
             fridge.remove_product(name, quantity)
         elif choice == '3':
-            recipe = Recipe()
-            recipe.add_ingredient(Product("Ingredient "))
             fridge.check_recipe(recipe)
         elif choice == '4':
             fridge.print_contents()
+        elif choice == '5':
+            input_recipe_name = input("Product name: ")
+            input_recipe_quantity = float(input("Product quantity: "))
+            input_product = Product(input_recipe_name, input_recipe_quantity)
+            recipe.add_ingredient(input_product)
+        elif choice == '6':
+            input_ingridient_id = int(input("Product ID: "))
+            recipe.remove_ingredient(input_ingridient_id - 1)
+        elif choice == '7':
+            input_ingridient_id = int(input("Product ID: "))
+            input_ingridient_quantity = float(input("Product quantity: "))
+            recipe.change_ingredient_quantity(input_ingridient_id - 1, input_ingridient_quantity)
+        elif choice == '8':
+            recipe.print_recipe()
         else:
             print("Bad choice, try again")
-
+        
 
 main()
+
     
