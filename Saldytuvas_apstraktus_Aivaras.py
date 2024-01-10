@@ -57,7 +57,7 @@ class Fridge:
 
     def check_product(self, product_name:str) -> (int, Product):
         for product_id, product in enumerate(self.contents):
-            if product.name == product_name:
+            if product.name.lower() == product_name.lower():
                 return product_id, product
         return None, None
     
@@ -65,9 +65,10 @@ class Fridge:
         return product.quantity - quantity
 
     def add_product(self, name:str, quantity:float):
-        product_id, product = self.check_product(name) # nenaudojamus kintamuosius galima vadinti tiesiog _
+        product_id, product = self.check_product(name) 
         if product is not None:
             product.quantity += quantity
+            print(f"{name} was already in the fridge and we added {quantity} more.")
         else:
             self.contents.append(Product(name, quantity))
             print(f"{name}x {quantity} was added to the fridge.")
@@ -151,16 +152,19 @@ def main():
             input_product = Product(input_recipe_name, input_recipe_quantity)
             recipe.add_ingredient(input_product)
         elif choice == '6':
-            input_ingridient_id = int(input("Product ID: "))
-            recipe.remove_ingredient(input_ingridient_id - 1)
+            input_ingridient_name = input("Input product name: ")
+            input_ingridient_quantity = float(input("Input product quantity: "))
+            recipe.remove_ingredient(input_ingridient_name, input_ingridient_quantity)
         elif choice == '7':
-            input_ingridient_id = int(input("Product ID: "))
-            input_ingridient_quantity = float(input("Product quantity: "))
+            input_ingridient_id = int(input("Ingredient ID: "))
+            input_ingridient_quantity = float(input("Ingredient quantity: "))
             recipe.change_ingredient_quantity(input_ingridient_id - 1, input_ingridient_quantity)
         elif choice == '8':
             recipe.print_recipe()
         else:
             print("Bad choice, try again")
+
+
 
         
 Fridge().add_product("milk", 1)
