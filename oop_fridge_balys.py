@@ -31,8 +31,6 @@ class Recipe:
             print(f"{index}, {ingredient}")
 
 
-
-
 class Fridge:
     contents = []
 
@@ -56,11 +54,19 @@ class Fridge:
         for index, line in enumerate(self.contents, start=1):
             print(f"{index} - {line}")
 
-    def remove_product(self, name:str):
+    def remove_product(self, name:str, quantity:float):
         self.print_contents()
         product_id, product = self.check_product(name)
         if product is not None:
-            self.contents.pop(product_id)
+            if product.quantity >= quantity:
+                product.quantity -= quantity
+                if product.quantity == quantity:
+                    self.contents.remove(product)
+            else:
+                print(f"Not enough {name} in the fridge.")
+        else:
+            print(f"Product {name} does not exist in the fridge.")
+
 
     def check_recipe(self, recipe: Recipe):
         for ingredient in recipe.ingredients:
@@ -103,7 +109,8 @@ exit - Exit
             fridge.add_product(input_name, input_quantity)
         elif choice.startswith("remove"):
             input_name = input("Input name: ")
-            fridge.remove_product(input_name)
+            input_quantity = float(input("Input quantity: "))
+            fridge.remove_product(input_name, input_quantity)
         elif choice.startswith("print"):
             print("Current contents of the fridge:")
             fridge.print_contents()
