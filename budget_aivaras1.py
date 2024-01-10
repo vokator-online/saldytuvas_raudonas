@@ -29,12 +29,10 @@ def main():
             print("Bad choice, try again")
 
 
-
-            
 def insert_item(budget, item_name: str, item_quantity: float):
     if item_name in budget:
         budget[item_name] += item_quantity
-        print(f"{item_name} was already in the balance and we added {item_quantity} more.")
+        print(f"{item_name} was already in the balance, and we added {item_quantity} more.")
     else:
         budget[item_name] = item_quantity
         print(f"{item_quantity}x {item_name} was added to the balance.")
@@ -45,7 +43,7 @@ def remove_item(budget, item_name, item_quantity):
         if budget[item_name] >= item_quantity:
             budget[item_name] -= item_quantity
             if budget[item_name] == 0:
-                del budget[item_name] 
+                del budget[item_name]
             print(f"{item_name} was removed from the balance.")
         else:
             print(f"Not enough {item_name} quantity in the balance.")
@@ -61,33 +59,9 @@ def print_items(budget):
 
 
 def get_balance(budget):
-    positive_balance = 0
-    negative_balance = 0
-    for item_name, item_quantity in budget.items():
-        if item_quantity > 0:
-            positive_balance += item_quantity
-        else:
-            negative_balance += item_quantity
-    balance = positive_balance + negative_balance
-    print(f"Your total gains: {positive_balance} minus your total loss: {negative_balance}\nYour ballance is: {balance}")
-    return balance
+    balance = sum(budget.values())
+    print(f"Your budget balance is: {balance}")
 
 
 if __name__ == "__main__":
     main()
-
-
-
-""" Komandinio darbo / savarankiška užduotis
-===[ Biudžetas ]===
-
-Reikalavimai
-
-* Biudžeto turinys - pajamų/išlaidų žurnalo žodynas
-** raktas - paskirtis
-** reikšmė - pajamos pozityvus float, išlaidos negatyvus float
-* Galimybė pridėti pajamas arba išlaidas
-* Spausdinti pajamų/išlaidų žurnalą
-* Suskaičiuoti biudžeto balansą
-
-"""
