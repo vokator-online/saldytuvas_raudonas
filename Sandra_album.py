@@ -13,19 +13,19 @@ def main():
         elif choice == "1":
             artist = input("Artist: ")
             title = input('Title: ')
-            add_album(artist, title)
+            add_cd(artist, title)
         elif choice == "2":
             artist = input("Artist: ")
             title = input('Title: ')
             remove_album(artist, title)
         elif choice == "3":
-            list_albums()
+            list_cds()
         else:
-            print("Bad choice, try again!")
+            print("Bad choice, please try again!")
 
 albums = []
 
-def add_album(artist, title):
+def add_cd(artist, title):
     album = {'artist': artist, 'title': title }
     albums.append(album)
     print(f"\nCD\t{artist} - {title}\tadded to collection.")
@@ -38,7 +38,7 @@ def remove_album(artist, title):
             return
     print(f"\nCD\t{artist} - {title}\tnot found in collection.")
 
-def list_albums():
+def list_cds():
     print('CDs in the collection:')
     for index, album in enumerate(albums, start=1):
         print(f'\n{index}. {album["artist"]} - {album["title"]}')
