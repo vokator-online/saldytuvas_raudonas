@@ -17,15 +17,18 @@ class Recipe:
     ingredients = []
     instructions = []
 
-    def add_ingredient(self, product:Product):
-        self.ingredients.append(product)
+    def add_ingredient(self, product: Product):
+        ingredient_id, existing_product = self.check_ingredient(product.name)
+        if existing_product is not None:
+            existing_product.quantity += product.quantity
+            print(f"{existing_product.name} was already in the recipe, and we added {product.quantity} more.")
+        else:
+            self.ingredients.append(Product(product.name, product.quantity))
+            print(f"{product.name}x {product.quantity} was added to the recipe.")
 
-    def change_ingredient_quantity(self, ingredient_id:int, new_quantity:float):
-        self.ingredients[ingredient_id].quantity = new_quantity
-
-    def check_ingredient(self, ingredient_name: str) -> (int, Product):
+    def check_ingredient(self, ingredient_name:str) -> (int, Product):
         for ingredient_id, ingredient in enumerate(self.ingredients):
-            if ingredient_name == ingredient.name:
+            if ingredient_name.lower() == ingredient.name.lower():
                 return ingredient_id, ingredient
         return None, None
 
@@ -92,17 +95,20 @@ class Fridge:
         for index, product in enumerate(self.contents, start=1):
             print(f'{index}, {product}')
 
-    def check_recipe(self, recipe:Recipe):
-        for ingredient in recipe.ingredients:
-            product_id, product = self.check_product(ingredient.name)
-            if product is not None:
-                if product.quantity >= ingredient.quantity:
-                    print(f"{ingredient.name} is in fridge.")
-                else:
-                    print(f"Not enough {ingredient.name} quoantity.")
-            else:
-                print(f"{ingredient.name} is not in the fridge.")
-            
+    def check_recipe(self, recipe: Recipe):
+            for ingredient in recipe.ingredients:
+                index, fridge_product = self.check_product(ingredient.name)
+                if fridge_product is None:
+                    print(f"{ingredient.name} was not found in the fridge")
+                    print("Recipe is not craftable")
+                    return False
+                quantity_difference = self.check_product_quantity(fridge_product, ingredient.quantity)
+                if quantity_difference < 0:
+                    print(f"Missing {abs(quantity_difference)} x {fridge_product.name}")
+                    print("Recipe is not craftable")
+                    return False
+            print("Recipe is craftable")
+            return True
 
 
 
