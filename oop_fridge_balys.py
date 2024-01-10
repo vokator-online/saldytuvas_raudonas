@@ -2,7 +2,7 @@ class Product:
     def __init__(self, name:str, quantity:float, **kwargs) -> None:
         self.name = name
         self.quantity = quantity
-        self.unit_of_measurement = 'unit' # options: kg, g, L, ml
+        self.unit_of_measurement = 'unit' # options: kg, g, L, ml !!!!!!!!!!!!!!!!!!!
         for key, value in kwargs.items():
             setattr(self, key, value)
 
@@ -17,16 +17,21 @@ class Recipe:
     ingredients = []
     instructions = []
 
-    def add_ingredient(self, product:Product):
-        self.ingredients.append(product)
+#reikia taisyti
+    def add_ingredient(self, product: Product):
+        ingredient_id, existing_product = self.check_ingredient(product.name)
+        if existing_product is not None:
+            existing_product.quantity += product.quantity
+            print(f"{existing_product.name} was already in the recipe, and we added {product.quantity} more.")
+        else:
+            self.ingredients.append(Product(product.name, product.quantity))
+            print(f"{product.name}x {product.quantity} was added to the recipe.")
 
-    def change_ingredient_quantity(self, ingredient_id:int, new_quantity:float):
-        self.ingredients[ingredient_id].quantity = new_quantity
 
 #Balys new function update
     def check_ingredient(self, ingredient_name:str) -> (int, Product):
         for ingredient_id, ingredient in enumerate(self.ingredients):
-            if ingredient_name == ingredient_name:
+            if ingredient_name.lower() == ingredient.name.lower():
                 return ingredient_id, ingredient
         return None, None
 
@@ -37,7 +42,7 @@ class Recipe:
         if ingredient is not None:
             if ingredient.quantity >= quantity:
                 ingredient.quantity -= quantity
-                print(f"{quantity}x{ingredient} was removed from recipe")
+                print(f"{name}x{ingredient} was removed from recipe")
                 if ingredient.quantity == 0:
                     self.ingredients.remove(ingredient)
                     print(f"All the {ingredient} was removed")
@@ -56,7 +61,7 @@ class Fridge:
 
     def check_product(self, product_name:str) -> (int, Product):
         for product_id, product in enumerate(self.contents):
-            if product.name == product_name:
+            if product.name.lower() == product_name.lower():
                 return product_id, product
         return None, None
     
@@ -93,16 +98,22 @@ class Fridge:
         else:
             print(f"Product {name} does not exist in the fridge.")
 
+#Balys missing quantity update
     def check_recipe(self, recipe: Recipe):
-        for ingredient in recipe.ingredients:
-            product_id, _ = Fridge().check_product(ingredient.name)
-            if product_id is None:
-                print(f"{ingredient.name} was not found in the fridge")
-                print("Recipe is not craftable")
-                return False
-        print("Recipe is craftable")
-        return True
- 
+            for ingredient in recipe.ingredients:
+                index, fridge_product = self.check_product(ingredient.name)
+                if fridge_product is None:
+                    print(f"{ingredient.name} was not found in the fridge")
+                    print("Recipe is not craftable")
+                    return False
+                quantity_difference = self.check_product_quantity(fridge_product, ingredient.quantity)
+                if quantity_difference < 0:
+                    print(f"Missing {abs(quantity_difference)} x {fridge_product.name}")
+                    print("Recipe is not craftable")
+                    return False
+            print("Recipe is craftable")
+            return True
+    
 
 def main():
     fridge = Fridge()
@@ -114,7 +125,7 @@ check - Checks fridge for a product
 add - Add a new product
 remove - Remove existing product
 print - Prints the contents
-recipe add- Add products to recipe
+recipe add - Add products to recipe
 recipe remove - Remove products from recipe
 recipe change - Change ingridient quantity of the recipe
 recipe print - Print current recipe
@@ -153,9 +164,9 @@ exit - Exit
             input_ingridient_quantity = float(input("Input product quantity: "))
             recipe.change_ingredient_quantity(input_ingridient_id-1, input_ingridient_quantity)
         elif choice.startswith("recipe remove"):
-            input_ingridient_id = int(input("Input product ID: "))
+            input_ingridient_name = input("Input product name: ")
             input_ingridient_quantity = float(input("Input product quantity: "))
-            recipe.remove_ingredient(input_ingridient_id-1, input_ingridient_quantity)
+            recipe.remove_ingredient(input_ingridient_name, input_ingridient_quantity)
         elif choice.startswith("recipe print"):
             print("Contents of the recipe:")
             recipe.print_recipe()
@@ -164,8 +175,8 @@ exit - Exit
         else:
             print("Bad choice, try again")
 
-Fridge().add_product("milk", 1)
-Recipe().add_ingredient(Product("milk", 1))
+Fridge().add_product("milk", 1.1)
+Recipe().add_ingredient(Product("milk", 1.1))
 
 if __name__ == "__main__":
     main()
