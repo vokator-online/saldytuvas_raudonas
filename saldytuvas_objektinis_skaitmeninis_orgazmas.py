@@ -56,7 +56,7 @@ class Fridge:
 
     def check_product(self, product_name:str) -> (int, Product):
         for product_id, product in enumerate(self.contents):
-            if product.name == product_name:
+            if product.name.lower() == product_name.lower():
                 return product_id, product
         return None, None
     
