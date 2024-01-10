@@ -23,8 +23,26 @@ class Recipe:
     def change_ingredient_quantity(self, ingredient_id:int, new_quantity:float):
         self.ingredients[ingredient_id].quantity = new_quantity
 
-    def remove_ingredient(self, ingredient_id:int):
-        self.ingredients.pop(ingredient_id)
+    def check_ingredient(self, ingredient_name: str) -> (int, Product):
+        for ingredient_id, ingredient in enumerate(self.ingredients):
+            if ingredient_name == ingredient.name:
+                return ingredient_id, ingredient
+        return None, None
+
+    def remove_ingredient(self, name: str, quantity: float):
+        self.print_recipe()
+        ingredient_id, ingredient = self.check_ingredient(name)
+        if ingredient is not None:
+            if ingredient.quantity >= quantity:
+                ingredient.quantity -= quantity
+                print(f"{quantity}x{ingredient} was removed from recipe")
+                if ingredient.quantity == 0:
+                    self.ingredients.remove(ingredient)
+                    print(f"All the {ingredient} was removed")
+            else:
+                print(f"Not enough {name} in the recipe.")
+        else:
+            print(f"Ingredient {name} does not exist in the recipe.")
 
     def print_recipe(self):
         for index, ingredient in enumerate(self.ingredients, start=1):
@@ -49,12 +67,14 @@ class Fridge:
             product.quantity += quantity
         else:
             self.contents.append(Product(name, quantity))
+            print(f"{name}x {quantity} was added to the fridge.")
 
     def print_contents(self):
         for index, line in enumerate(self.contents, start=1):
             print(f"{index} - {line}")
 
     def remove_product(self, name:str, quantity:float):
+        self.print_contents()
         product_id, product = self.check_product(name)
         if product is not None:
             if product.quantity >= quantity:
@@ -135,7 +155,11 @@ def main():
             recipe.print_recipe()
         else:
             print("Bad choice, try again")
+
         
+Fridge().add_product("milk", 1)
+Recipe().add_ingredient(Product("milk", 1))
+
 
 main()
 
