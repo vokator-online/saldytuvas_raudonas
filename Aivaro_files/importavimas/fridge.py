@@ -3,7 +3,6 @@ from recipe import Recipe
 
 class Fridge:
     contents = []
-    
 
     def check_product(self, product_name:str) -> (int, Product):
         for product_id, product in enumerate(self.contents):
@@ -21,7 +20,7 @@ class Fridge:
             print(f"{name} was already in the fridge and we added {quantity}{unit_of_measurement} more.")
         else:
             self.contents.append(Product(name, quantity, unit_of_measurement))
-            print(f"{name}{quantity}{unit_of_measurement} was added to the fridge.")
+            print(f"{name} {quantity} {unit_of_measurement} was added to the fridge.")
 
     def print_contents(self):
         for index, line in enumerate(self.contents, start=1):
@@ -33,7 +32,7 @@ class Fridge:
         if product is not None:
             if product.quantity >= quantity:
                 product.quantity -= quantity
-                print(f"{quantity}x{product} was removed from fridge")
+                print(f"{quantity} x {product} was removed from fridge. ")
                 if product.quantity == 0:
                     self.contents.remove(product)
                     print(f"All the {product} was removed")
@@ -51,7 +50,7 @@ class Fridge:
                     return False
                 quantity_difference = self.check_product_quantity(fridge_product, ingredient.quantity)
                 if quantity_difference < 0:
-                    print(f"Missing {abs(quantity_difference)}x{fridge_product.name}")
+                    print(f"Missing {abs(quantity_difference)} x {fridge_product.name}")
                     print("Recipe is not craftable")
                     return False
             print("Recipe is craftable")

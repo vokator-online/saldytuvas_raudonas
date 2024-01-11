@@ -1,11 +1,8 @@
-from fridge import Fridge
-from recipe import Recipe
-
 class Product:
-    def __init__(self, name:str, quantity:float, **kwargs) -> None:
+    def __init__(self, name:str, quantity:float, unit_of_measurement:str = 'unit', **kwargs) -> None:
         self.name = name
         self.quantity = quantity
-        self.unit_of_measurement = 'unit' # options: kg, g, L, ml
+        self.unit_of_measurement = unit_of_measurement
         for key, value in kwargs.items():
             setattr(self, key, value)
 
