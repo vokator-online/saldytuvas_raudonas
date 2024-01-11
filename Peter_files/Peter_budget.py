@@ -21,8 +21,6 @@ def calculate_balance(budget):
         balance += amount
     return balance
 
-
-
 def main():
     budget = {}
 
@@ -68,3 +66,21 @@ def main():
 
 if __name__ == "__main__":
     main()
+            
+
+
+
+
+""" Komandinio darbo / savarankiška užduotis
+===[ Biudžetas ]===
+
+Reikalavimai
+
+* Biudžeto turinys - pajamų/išlaidų žurnalo žodynas
+** raktas - paskirtis
+** reikšmė - pajamos pozityvus float, išlaidos negatyvus float
+* Galimybė pridėti pajamas arba išlaidas
+* Spausdinti pajamų/išlaidų žurnalą
+* Suskaičiuoti biudžeto balansą
+
+"""
