@@ -1,6 +1,5 @@
 from fridge import Fridge
-from recipe import Recipe
-from product import Product
+
 
 def main():
     fridge = Fridge()
