@@ -1,4 +1,5 @@
-from fridge import *
+from fridge.fridge import *
+
 
 def main():
     fridge = Fridge()
@@ -25,6 +26,7 @@ def main():
         choice = input("Select the menu item you would like to do: ")
 
         if choice.startswith('0'):
+            fridge.save()
             break
 
         elif choice.startswith('1'):
@@ -75,11 +77,6 @@ def main():
             fridge.check_recipe(recipe)        
         else:
             print("Incorrect command, please try again!")
-
-fridge = Fridge()
-fridge.add_product("milk", 1.1, "l")
-recipe = Recipe()
-recipe.add_ingredient(Product("milk", 1.1, "l"))
             
 if __name__ == "__main__":
     main()
